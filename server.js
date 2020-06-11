@@ -368,6 +368,98 @@ app.post('/create-product',(req,res)=>{
     res.end()
 })
 
+app.post('/create-payout',(req,res)=>{
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer A21AAFiu2UImpSSTECTSdWLeYUi1SLM-h7kfTLhBRmQZ6NxWmAndUfjnlwmvq6_xDYhtZR8Cx6yqux0ROgOAGneBDGPEYveRA'
+    };
+    
+    const dataString = {
+      "sender_batch_header": {
+        "sender_batch_id": "9514402551",
+        "recipient_type": "EMAIL",
+        "email_subject": "You have money!",
+        "email_message": "You received a payment. Thanks for using our service!"
+      },
+      "items": [
+        {
+          "amount": {
+            "value": "9.99",
+            "currency": "USD"
+          },
+          "sender_item_id": "201403140002",
+          "recipient_wallet": "PAYPAL",
+          "receiver": "sb-b9s6y2183020@personal.example.com"
+        },
+        {
+          "amount": {
+            "value": "119.99",
+            "currency": "USD"
+          },
+          "sender_item_id": "201403140003",
+          "recipient_wallet": "PAYPAL",
+          "receiver": "drewwperez@gmail.com"
+        },
+        {
+          "recipient_type": "PHONE",
+          "amount": {
+            "value": "9.99",
+            "currency": "USD"
+          },
+          "note": "Thanks dude",
+          "sender_item_id": "20140314004",
+          "recipient_wallet": "VENMO",
+          "receiver": "9514402550"
+        }
+      ]
+    };
+    
+    const options = {
+        url: 'https://api.sandbox.paypal.com/v1/payments/payouts',
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(req.body)
+    };
+    
+    function callback(error, response, body) {
+        console.log(error)
+        if(response){
+            console.log(response)
+        }
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+        }
+    }
+    
+    request(options, callback);
+    res.end()
+})
+
+app.get('/payout-details',(req,res)=>{
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer A21AAFiu2UImpSSTECTSdWLeYUi1SLM-h7kfTLhBRmQZ6NxWmAndUfjnlwmvq6_xDYhtZR8Cx6yqux0ROgOAGneBDGPEYveRA'
+    };
+    
+    const options = {
+        url: JSON.stringify(req.body),
+        headers: headers
+    };
+    
+    function callback(error, response, body) {
+        console.log(error)
+        if(response){
+            console.log(response)
+        }
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+        }
+    }
+    
+    request(options, callback);
+    res.end()
+})
+
 app.post('/webhooks',(req,res)=>{
     console.log('********WEBHOOK ACTIVATED**********')
     console.log(req.body.resource)
