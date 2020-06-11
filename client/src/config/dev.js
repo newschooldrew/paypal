@@ -1,0 +1,4 @@
+module.exports = {
+clientId:'AU0ErApCQ95X84DgRuowQCW0muyyFJJ1w6fRnBw4ed6XqiuA15mCyZNg7NBePykJdl-NAxteKGOB4dPy',
+secret:'ELj8FRFGjhjAZvedgvTvhRZcwfbtXDC0j5jxmMv4F7oVzkQc4BU3JK5LZCQZMwVad-z0X62F8yCOWCxY'
+}
